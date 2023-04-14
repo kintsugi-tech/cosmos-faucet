@@ -20,7 +20,7 @@ export default function Web() {
     e.preventDefault();
 
     try {
-      const result = await fetch(`${API_HOST}/message/${name}`);
+      const result = await fetch(`${API_HOST}/faucet/${name}`);
       const response = await result.json();
       setResponse(response);
     } catch (err) {
@@ -35,9 +35,9 @@ export default function Web() {
 
   return (
     <div>
-      <h1>Web</h1>
+      <h1>MiB Faucet</h1>
       <form onSubmit={onSubmit}>
-        <label htmlFor="name">Name </label>
+        <label htmlFor="name">Address </label>
         <input
           type="text"
           name="name"
@@ -45,7 +45,7 @@ export default function Web() {
           value={name}
           onChange={onChange}
         ></input>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Claim</Button>
       </form>
       {error && (
         <div>
