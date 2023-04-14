@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "ui";
+import Layout from "../../components/layout";
 
 const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
 
@@ -34,7 +34,7 @@ export default function Web() {
   };
 
   return (
-    <div>
+    <Layout>
       <h1>MiB Faucet</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="name">Address </label>
@@ -45,7 +45,6 @@ export default function Web() {
           value={name}
           onChange={onChange}
         ></input>
-        <Button type="submit">Claim</Button>
       </form>
       {error && (
         <div>
@@ -57,9 +56,8 @@ export default function Web() {
         <div>
           <h3>Greeting</h3>
           <p>{response.message}</p>
-          <Button onClick={onReset}>Reset</Button>
         </div>
       )}
-    </div>
+    </Layout>
   );
 }
