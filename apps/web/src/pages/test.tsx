@@ -20,8 +20,14 @@ import {
 } from '@chakra-ui/react';
 import Layout from '../../components/layout';
 import { FaQrcode } from "react-icons/fa";
+import { useState } from "react";
+import { QrReader } from 'react-qr-reader';
 
 export default function CallToActionWithAnnotation() {
+
+    const [scanQr, setScanQr] = useState(false);
+    const [data, setData] = useState('No result');
+
     return (
         <Layout>
 
@@ -64,9 +70,9 @@ export default function CallToActionWithAnnotation() {
 
                         <Box>
                             <InputGroup size='lg'>
-                                <Input placeholder='address' size='lg' width={'2xl'}/>
+                                <Input placeholder='address' size='lg' width={'2xl'} value={data} onChange={(e) => setData(e.target.value)}/>
                                 <InputRightElement width='4.5rem'>
-                                    <IconButton aria-label={'Scan QR'} size='sm' icon={<Icon as={FaQrcode} />} />
+                                    <IconButton onClick={(e) => setScanQr(true)} aria-label={'Scan QR'} size='sm' icon={<Icon as={FaQrcode} />} />
                                 </InputRightElement>
                             </InputGroup>
                             <Button
@@ -100,7 +106,14 @@ export default function CallToActionWithAnnotation() {
                                 100% Aliens Free
                             </Text>
                         </Box>
-                    </Stack>
+                        {scanQr && <QrReader
+                        onResult={(result, error) => {
+                            if (!!result) {
+                                setData(result?.text);
+                            }
+                            }}
+                        />}
+                    </Stack>     
                 </Stack>
             </Container>
         </Layout>
